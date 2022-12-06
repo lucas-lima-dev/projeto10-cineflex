@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Header from "./Header";
 import MoviesList from "./MoviesList";
 import SelectSeats from "./SelectSeats";
@@ -10,6 +11,7 @@ export default function CineFlexScreen() {
         <Title/>
         {/* <MoviesList/> */}
         <SelectSeats/>
+        <Footer/>
         </>
     )
 }
