@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { CINZACLARO, LARANJA } from "../constants/colors";
+
 
 export default function SelectSeats() {
   return (
@@ -99,6 +101,7 @@ const StyledSelectedSeats = styled.div`
   align-items: center;
   margin-left: 24px;
   margin-right: 24px;
+  margin-bottom:150px
 `;
 
 const StyledContainerSeats = styled.div`
@@ -112,7 +115,7 @@ const StyledSeatsNumber = styled.div`
   box-sizing: border-box;
   width: 26px;
   height: 26px;
-  background: #c3cfd9;
+  background: ${CINZACLARO};
   border: 1px solid #808f9d;
   border-radius: 12px;
   position: relative;
@@ -184,8 +187,8 @@ const StyledDadosComprador = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 41px 20px;
-  margin-bottom: 57px;
+  margin: 31px 20px;
+  margin-bottom: 30px;
 
   p {
     font-family: "Roboto";
@@ -219,7 +222,7 @@ const StyledDadosComprador = styled.div`
 const StyledButon = styled.button`
   width: 225px;
   height: 42px;
-  background: #e8833a;
+  background: ${LARANJA};
   border-radius: 3px;
   border: none;
   p {

@@ -1,7 +1,9 @@
+import FinalScreen from "./FinalScreen";
 import Footer from "./Footer";
 import Header from "./Header";
 import MoviesList from "./MoviesList";
 import SelectSeats from "./SelectSeats";
+import SelectSession from "./SelectSession";
 import Title from "./Title";
 
 export default function CineFlexScreen() {
@@ -10,8 +12,10 @@ export default function CineFlexScreen() {
         <Header/>
         <Title/>
         {/* <MoviesList/> */}
-        <SelectSeats/>
-        <Footer/>
+        {/* <SelectSession/> */}
+        {/* <SelectSeats/> */}
+        <FinalScreen/>
+        {/* <Footer/> */}
         </>
     )
 }

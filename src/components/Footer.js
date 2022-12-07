@@ -25,7 +25,7 @@ const StyledFooter = styled.div`
   height: 117px;
   border: 1px solid #9eadba;
 
-  position:absolute;
+  position:fixed;
   bottom:0px;
 `;
 
