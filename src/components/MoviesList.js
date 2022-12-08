@@ -1,40 +1,30 @@
 import styled from "styled-components";
-import filme2067 from "../assets/2067.png";
-import filmeEnolaHolmes from "../assets/enolaholmes.png";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function MoviesList() {
+  const [movies, setMovies] = useState(undefined);
+
+  useEffect(() => {
+    const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
+    const promise = axios.get(URL);
+
+    promise.then((res) => setMovies(res.data));
+    promise.catch((err) => alert(err.response.data));
+  }, []);
+
+  if(movies === undefined){
+    return <div>Carregando...</div>
+  }
+
+
   return (
     <ContainerMovies>
-      <StyledMoviesList>
-        {<img src={filme2067} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filmeEnolaHolmes} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filme2067} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filmeEnolaHolmes} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filme2067} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filmeEnolaHolmes} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filme2067} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filmeEnolaHolmes} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filme2067} alt="movies" />}
-      </StyledMoviesList>
-      <StyledMoviesList>
-        {<img src={filmeEnolaHolmes} alt="movies" />}
-      </StyledMoviesList>
+      {movies.map((movie) => (
+        <StyledMoviesList key={movie.id}>
+          {<img src={movie.posterURL} alt={movie.title} />}
+        </StyledMoviesList>
+      ))}
     </ContainerMovies>
   );
 }

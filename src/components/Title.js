@@ -3,8 +3,8 @@ import styled from "styled-components";
 export default function Title() {
   return (
     <StyledTitle>
-      {/* <p>Selecione o filme</p> */}
-       <p>Selecione o horário</p>
+      <p>Selecione o filme</p>
+       {/* <p>Selecione o horário</p> */}
       {/* <p>Selecione o(s) assento(s)</p> */}
       {/* <p>Pedido feito com sucesso!</p> */ }
     </StyledTitle>
