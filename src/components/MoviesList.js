@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Header from "./Header";
+
 
 export default function MoviesList() {
   const [movies, setMovies] = useState(undefined);
@@ -13,19 +15,22 @@ export default function MoviesList() {
     promise.catch((err) => alert(err.response.data));
   }, []);
 
-  if(movies === undefined){
-    return <div>Carregando...</div>
+  if (movies === undefined) {
+    return <div>Carregando...</div>;
   }
 
-
   return (
-    <ContainerMovies>
-      {movies.map((movie) => (
-        <StyledMoviesList key={movie.id}>
-          {<img src={movie.posterURL} alt={movie.title} />}
-        </StyledMoviesList>
-      ))}
-    </ContainerMovies>
+    <>
+      <Header />
+      <Title1/>
+      <ContainerMovies>
+        {movies.map((movie) => (
+          <StyledMoviesList key={movie.id}>
+            {<img src={movie.posterURL} alt={movie.title} />}
+          </StyledMoviesList>
+        ))}
+      </ContainerMovies>
+    </>
   );
 }
 
@@ -37,6 +42,7 @@ const ContainerMovies = styled.div`
   gap: 11px 30px;
   margin-right: 25px;
   margin-left: 30px;
+  margin-bottom:50px;
 `;
 const StyledMoviesList = styled.div`
   display: flex;
@@ -51,5 +57,28 @@ const StyledMoviesList = styled.div`
   img {
     width: 129px;
     height: 193px;
+  }
+`;
+
+function Title1() {
+  return (
+    <StyledTitle>
+      <p>Selecione o filme</p>
+    </StyledTitle>
+  );
+}
+
+const StyledTitle = styled.div`
+  width: auto;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
   }
 `;
