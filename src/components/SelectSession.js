@@ -1,54 +1,64 @@
 import styled from "styled-components";
-import filme2067 from "../assets/2067.png";
-import filmeEnolaHolmes from "../assets/enolaholmes.png";
-
-import { LARANJA,CINZACLARO } from "../constants/colors";
+import { LARANJA, CINZACLARO } from "../constants/colors";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "./Header";
+import { useParams } from "react-router-dom";
 
 export default function SelectSession() {
-  const [session,setSession] = useState(undefined)
+  const [movieInfo, setMovieInfo] = useState();
+  const { idFilme } = useParams();
+  
 
-  useEffect(()=>{
-    const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies/1/showtimes"
-    const promise = axios.get(URL)
+  useEffect(() => {
+    const URL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`;
+    const promise = axios.get(URL);
 
-    promise.then((res)=>setSession(res.data))
-    promise.catch((err)=>alert(err.response.data))
-  },[])
+    promise.then((res) => {
+      setMovieInfo(res.data);
+      
+    });
+    promise.catch((err) => alert(err.response.data));
+  }, [idFilme]);
 
-  if(session === undefined){
-    return <div>Carregando...</div>
+  if (movieInfo === undefined) {
+    return <div>Carregando...</div>;
   }
 
+  console.log(movieInfo.days);
   return (
-    <> 
-    <Header/>
-    <Title2/>
-    <StyledSelectSession>
-      <p>Quinta-feira - 24/06/2021</p>
-      <ContainerButton>
-        <StyledButon>15:00</StyledButon>
-        <StyledButon>15:00</StyledButon>
-      </ContainerButton>
-    </StyledSelectSession>
-    <StyledSelectSession>
-      <p>Quinta-feira - 24/06/2021</p>
-      <ContainerButton>
-        <StyledButon>15:00</StyledButon>
-        <StyledButon>15:00</StyledButon>
-      </ContainerButton>
-    </StyledSelectSession>
-    <Footer/>
+    <>
+      <Header />
+      <Title2 />
+      {movieInfo.days.map((session) => (
+        <Sessions key={session.id} session={session} />
+      ))}
+
+      <Footer movieInfo={movieInfo} />
     </>
   );
 }
 
+function Sessions({ session }) {
+  const { weekday, date, showtimes } = session;
+  return (
+    <StyledSelectSession data-test='movie-day'>
+      <p>
+        {weekday} - {date}
+      </p>
+      <ContainerButton>
+        {showtimes.map((showtime) => (
+          <StyledButon key={showtime.id}>{showtime.name}</StyledButon>
+        ))}
+        
+      </ContainerButton>
+    </StyledSelectSession>
+  );
+}
 const StyledSelectSession = styled.div`
   margin: 23px;
   p {
-    width: 241px;
+    width: auto;
     height: 35px;
     font-family: "Roboto";
     font-style: normal;
@@ -59,10 +69,11 @@ const StyledSelectSession = styled.div`
     color: #293845;
   }
 `;
+
 const ContainerButton = styled.div`
   display: flex;
-  gap:8px;
-  margin-top:20px;
+  gap: 8px;
+  margin-top: 20px;
 `;
 const StyledButon = styled.button`
   width: 82px;
@@ -105,21 +116,19 @@ const StyledTitle = styled.div`
   }
 `;
 
- function Footer() {
+function Footer({ movieInfo }) {
+  const { title, posterURL } = movieInfo;
   return (
     <StyledFooter>
       <ContainerFooter>
-        <MovieBox>
-          {<img src={filmeEnolaHolmes} alt="filme escolhido" />}
-        </MovieBox>
-        <p>Enola Holmes</p>
+        <MovieBox>{<img src={posterURL} alt="filme escolhido" />}</MovieBox>
+        <p>{title}</p>
       </ContainerFooter>
     </StyledFooter>
   );
 }
 
 const StyledFooter = styled.div`
-
   display: flex;
   align-items: center;
   background-color: ${CINZACLARO};
@@ -127,15 +136,16 @@ const StyledFooter = styled.div`
   height: 117px;
   border: 1px solid #9eadba;
 
-  position:fixed;
-  bottom:0px;
+  position: fixed;
+  bottom: 0px;
+  
 `;
 
 const ContainerFooter = styled.div`
   display: flex;
-  
+
   align-items: center;
-  margin: 10px 14px ;
+  margin: 10px 14px;
   p {
     margin-left: 14px;
     font-family: "Roboto";

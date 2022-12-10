@@ -2,7 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "./Header";
-
+import { Link } from "react-router-dom";
 
 export default function MoviesList() {
   const [movies, setMovies] = useState(undefined);
@@ -11,7 +11,9 @@ export default function MoviesList() {
     const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
     const promise = axios.get(URL);
 
-    promise.then((res) => setMovies(res.data));
+    promise.then((res) => {
+      setMovies(res.data);
+    });
     promise.catch((err) => alert(err.response.data));
   }, []);
 
@@ -22,11 +24,13 @@ export default function MoviesList() {
   return (
     <>
       <Header />
-      <Title1/>
+      <Title1 />
       <ContainerMovies>
         {movies.map((movie) => (
           <StyledMoviesList key={movie.id}>
-            {<img src={movie.posterURL} alt={movie.title} />}
+            <Link to={`/sessoes/${movie.id}`}>
+              {<img src={movie.posterURL} alt={movie.title} />}
+            </Link>
           </StyledMoviesList>
         ))}
       </ContainerMovies>
@@ -42,7 +46,7 @@ const ContainerMovies = styled.div`
   gap: 11px 30px;
   margin-right: 25px;
   margin-left: 30px;
-  margin-bottom:50px;
+  margin-bottom: 50px;
 `;
 const StyledMoviesList = styled.div`
   display: flex;
