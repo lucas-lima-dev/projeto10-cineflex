@@ -15,5 +15,6 @@ export default function CineFlexScreen() {
         <Route path="/sucesso" element={<FinalScreen />} />
       </Routes>
     </BrowserRouter>
+    
   );
 }

@@ -5,3 +5,16 @@ export const VERDEESCURO = "#237a6b"
 export const AMARELO = "#fbe192"
 export const LARANJA = "#e8833b"
 
+export const AVAILABLE ={
+    background: CINZACLARO,
+    border: "#7b8b99"
+  }
+  export const NOT_AVAILABLE ={
+    background: AMARELO,
+    border:"#f7c52b"
+  }
+
+  export const SELECTED = {
+    background:VERDE,
+    border: "#0e7d71"
+  }

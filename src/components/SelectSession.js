@@ -3,7 +3,7 @@ import { LARANJA, CINZACLARO } from "../constants/colors";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "./Header";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function SelectSession() {
   const [movieInfo, setMovieInfo] = useState();
@@ -48,7 +48,9 @@ function Sessions({ session }) {
       </p>
       <ContainerButton>
         {showtimes.map((showtime) => (
+          <Link data-test='showtime' to={`/assentos/${showtime.id}`}>
           <StyledButon key={showtime.id}>{showtime.name}</StyledButon>
+          </Link>
         ))}
         
       </ContainerButton>
