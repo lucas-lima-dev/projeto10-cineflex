@@ -30,9 +30,9 @@ export default function SelectSession() {
       <Header />
       <Title2 />
       <ShowSessions>
-      {movieInfo.days.map((session) => (
+        {movieInfo.days.map((session) => (
           <Sessions key={session.id} session={session} />
-      ))}
+        ))}
       </ShowSessions>
 
       <Footer movieInfo={movieInfo} />
@@ -53,7 +53,9 @@ function Sessions({ session }) {
       <ContainerButton>
         {showtimes.map((showtime) => (
           <Link data-test="showtime" to={`/assentos/${showtime.id}`}>
-            <StyledButon key={showtime.id}>{showtime.name}</StyledButon>
+            <StyledButon key={showtime.id}>
+              <p>{showtime.name}</p>
+            </StyledButon>
           </Link>
         ))}
       </ContainerButton>
@@ -79,25 +81,27 @@ const ContainerButton = styled.div`
   display: flex;
   gap: 8px;
   margin-top: 20px;
-  
 `;
 const StyledButon = styled.button`
   width: 82px;
   height: 43px;
   background-color: ${LARANJA};
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0.02em;
-  color: #ffffff;
   border: none;
   border-radius: 3px;
-  cursor:pointer;
+  cursor: pointer;
+  p {
+    text-decoration: none;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
 `;
 
 function Title2() {
@@ -122,5 +126,3 @@ const StyledTitle = styled.div`
     line-height: 28px;
   }
 `;
-
-
