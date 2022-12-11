@@ -6,7 +6,7 @@ export default function Footer({ movieInfo, day, time }) {
   const { title, posterURL } = movieInfo;
   // console.log(time);
   return (
-    <StyledFooter>
+    <StyledFooter data-test='footer'>
       <ContainerFooter>
         <MovieBox>{<img src={posterURL} alt="filme escolhido" />}</MovieBox>
         <ShowInfo>

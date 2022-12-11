@@ -8,7 +8,7 @@ export default function FinalScreen({ bookedSeatsInfo }) {
   const navigate = useNavigate();
   const { body, sessionInfo } = bookedSeatsInfo;
   // const {seats} = sessionInfo.seats
-  console.log(sessionInfo.seats)
+  // console.log(sessionInfo.seats)
   return (
     <>
       <Header />
@@ -23,7 +23,7 @@ export default function FinalScreen({ bookedSeatsInfo }) {
         </ContainerFilmeSessao>
         <ContainerIngressos data-test="seats-info">
           <h1>Ingressos</h1>
-          {/* {body.map(seat => <p key={seat}>Assento {}</p>)} */}
+          {/* {.map(seat => <p key={seat}>Assento {}</p>)} */}
           <p>Assento 15</p>
           <p>Assento 16</p>
         </ContainerIngressos>

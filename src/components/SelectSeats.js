@@ -179,7 +179,7 @@ function BuyerForm({ ids, setBookedSeatsInfo, sessionInfo }) {
         />
       </StyledDadosComprador>
       <ContainerButton>
-        <StyledButon type="submit">
+        <StyledButon type="submit" data-test='book-seat-btn'>
           <p>Reservar assento(s) </p>
         </StyledButon>
       </ContainerButton>

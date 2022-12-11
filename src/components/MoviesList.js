@@ -28,7 +28,7 @@ export default function MoviesList() {
       <ContainerMovies>
         {movies.map((movie) => (
           <StyledMoviesList key={movie.id}>
-            <Link to={`/sessoes/${movie.id}`}>
+            <Link to={`/sessoes/${movie.id}`} data-test='movie'>
               {<img src={movie.posterURL} alt={movie.title} />}
             </Link>
           </StyledMoviesList>
