@@ -1,30 +1,39 @@
 import styled from "styled-components";
-import { CINZACLARO, LARANJA } from "../constants/colors";
+import { CINZACLARO, LARANJA,VERDEESCURO } from "../constants/colors";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
-export default function FinalScreen() {
+export default function FinalScreen({ bookedSeatsInfo }) {
+  console.log(bookedSeatsInfo);
+  const navigate = useNavigate();
+  const { body, sessionInfo } = bookedSeatsInfo;
+  // const {seats} = sessionInfo.seats
+  console.log(sessionInfo.seats)
   return (
     <>
       <Header />
       <Title3 />
       <StyledFinalScreen>
-        <ContainerFilmeSessao>
+        <ContainerFilmeSessao data-test="movie-info">
           <h1>Filme e sessão</h1>
-          <p>Enola Holmes</p>
-          <p>24/06/2021 15:00</p>
+          <p>{sessionInfo.movie.title}</p>
+          <p>
+            {sessionInfo.day.date} {sessionInfo.name}
+          </p>
         </ContainerFilmeSessao>
-        <ContainerIngressos>
+        <ContainerIngressos data-test="seats-info">
           <h1>Ingressos</h1>
+          {/* {body.map(seat => <p key={seat}>Assento {}</p>)} */}
           <p>Assento 15</p>
           <p>Assento 16</p>
         </ContainerIngressos>
-        <ContainerFilmeSessao>
+        <ContainerFilmeSessao data-test="client-info">
           <h1>Comprador</h1>
-          <p>Nome: João da Silva Sauro</p>
-          <p>CPF: 123.456.789-10</p>
+          <p>Nome: {body.name}</p>
+          <p>CPF: {body.cpf}</p>
         </ContainerFilmeSessao>
         <ContainerButton>
-          <StyledButon>
+          <StyledButon data-test="go-home-btn" onClick={() => navigate("/")}>
             <p>Voltar pra Home </p>
           </StyledButon>
         </ContainerButton>
@@ -118,6 +127,7 @@ const StyledButon = styled.button`
   background: ${LARANJA};
   border-radius: 3px;
   border: none;
+  cursor: pointer;
 
   p {
     font-family: "Roboto";
@@ -134,8 +144,10 @@ const StyledButon = styled.button`
 function Title3() {
   return (
     <StyledTitle>
-      <p>Pedido feito  <br/>
-      com sucesso!</p>
+      <p>
+        Pedido feito <br />
+        com sucesso!
+      </p>
     </StyledTitle>
   );
 }
@@ -147,13 +159,12 @@ const StyledTitle = styled.div`
   align-items: center;
   justify-content: center;
   p {
-    
     font-family: "Roboto";
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;
     letter-spacing: 0.04em;
-    color: #247a6b;
+    color: ${VERDEESCURO};
   }
 `;

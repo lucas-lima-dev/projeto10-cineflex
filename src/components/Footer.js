@@ -1,23 +1,28 @@
 import styled from "styled-components";
-import filme2067 from "../assets/2067.png";
-import filmeEnolaHolmes from "../assets/enolaholmes.png";
+
 import { CINZACLARO } from "../constants/colors";
 
-export default function Footer() {
+export default function Footer({ movieInfo, day, time }) {
+  const { title, posterURL } = movieInfo;
+  // console.log(time);
   return (
     <StyledFooter>
       <ContainerFooter>
-        <MovieBox>
-          {<img src={filmeEnolaHolmes} alt="filme escolhido" />}
-        </MovieBox>
-        <p>Enola Holmes</p>
+        <MovieBox>{<img src={posterURL} alt="filme escolhido" />}</MovieBox>
+        <ShowInfo>
+          <p>{title}</p>
+          {day && (
+            <p>
+              {day.weekday} - {time}
+            </p>
+          )}
+        </ShowInfo>
       </ContainerFooter>
     </StyledFooter>
   );
 }
 
 const StyledFooter = styled.div`
-
   display: flex;
   align-items: center;
   background-color: ${CINZACLARO};
@@ -25,15 +30,15 @@ const StyledFooter = styled.div`
   height: 117px;
   border: 1px solid #9eadba;
 
-  position:fixed;
-  bottom:0px;
+  position: fixed;
+  bottom: 0px;
 `;
 
 const ContainerFooter = styled.div`
   display: flex;
-  
+
   align-items: center;
-  margin: 10px 14px ;
+  margin: 10px 14px;
   p {
     margin-left: 14px;
     font-family: "Roboto";
@@ -47,6 +52,7 @@ const ContainerFooter = styled.div`
 
 const MovieBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 64px;
@@ -58,4 +64,9 @@ const MovieBox = styled.div`
     width: 48px;
     height: 72px;
   }
+`;
+
+const ShowInfo = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
