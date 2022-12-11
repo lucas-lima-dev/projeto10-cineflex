@@ -18,13 +18,16 @@ export default function SelectSeats({ setBookedSeatsInfo }) {
   const { idSessao } = useParams();
   const [sessionInfo, setSessionInfo] = useState();
   const [ids, setIds] = useState([]);
+  const [seatsNumber,setSeatsNumber] = useState([])
 
-  function addSeat(id) {
-    setIds([...ids, id]);
+  function addSeat(seat) {
+    setIds([...ids, seat.id]);
+    setSeatsNumber([...seatsNumber,seat.name])
   }
 
-  function removeSeat(removedId) {
-    setIds(ids.filter((id) => id !== removedId));
+  function removeSeat(seat) {
+    setIds(ids.filter((id) => id !== seat.id));
+    setSeatsNumber(seatsNumber.filter((number) => number !== seat.name))
   }
 
   useEffect(() => {
@@ -58,6 +61,7 @@ export default function SelectSeats({ setBookedSeatsInfo }) {
           ids={ids}
           setBookedSeatsInfo={setBookedSeatsInfo}
           sessionInfo={sessionInfo}
+          seatsNumber={seatsNumber}
         />
       </StyledSelectedSeats>
       <Footer
@@ -85,30 +89,30 @@ function SeatsOptions({ seats, addSeat, removeSeat }) {
 }
 
 function SeatsNumber({ seat, addSeat, removeSeat }) {
-  const { name, isAvailable, id } = seat;
+  const { name, isAvailable } = seat;
   const [isSelected, setIsSelected] = useState(false);
 
   const [color, setColor] = useState(isAvailable ? AVAILABLE : NOT_AVAILABLE);
 
-  function handleClick(id) {
+  function handleClick(seat) {
     if (!isAvailable) {
       alert("Esse assento não está disponível");
       return;
     }
     if (!isSelected) {
-      addSeat(id);
+      addSeat(seat);
       setIsSelected(!isSelected);
       setColor(SELECTED);
       return;
     }
-    removeSeat(id);
+    removeSeat(seat);
     setIsSelected(!isSelected);
     setColor(AVAILABLE);
   }
 
   return (
     <StyledSeatsNumber
-      onClick={() => handleClick(id)}
+      onClick={() => handleClick(seat)}
       data-test="seat"
       color={color}
     >
@@ -136,7 +140,7 @@ function SeatStatus() {
   );
 }
 
-function BuyerForm({ ids, setBookedSeatsInfo, sessionInfo }) {
+function BuyerForm({ ids, setBookedSeatsInfo, sessionInfo,seatsNumber }) {
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const navigate = useNavigate();
@@ -151,8 +155,8 @@ function BuyerForm({ ids, setBookedSeatsInfo, sessionInfo }) {
       name,
       cpf,
     };
-    console.log(body,sessionInfo)
-    setBookedSeatsInfo({body, sessionInfo});
+    // console.log(body,sessionInfo)
+    setBookedSeatsInfo({body:{...body,seatsNumber}, sessionInfo});
     axios.post(URL, body).then(() => navigate("/sucesso"));
   }
 

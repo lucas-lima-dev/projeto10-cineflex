@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function FinalScreen({ bookedSeatsInfo }) {
   console.log(bookedSeatsInfo);
   const navigate = useNavigate();
-  const { body, sessionInfo } = bookedSeatsInfo;
+  const { body, sessionInfo, } = bookedSeatsInfo;
+  const {seatsNumber} = body
   // const {seats} = sessionInfo.seats
   // console.log(sessionInfo.seats)
   return (
@@ -23,9 +24,8 @@ export default function FinalScreen({ bookedSeatsInfo }) {
         </ContainerFilmeSessao>
         <ContainerIngressos data-test="seats-info">
           <h1>Ingressos</h1>
-          {/* {.map(seat => <p key={seat}>Assento {}</p>)} */}
-          <p>Assento 15</p>
-          <p>Assento 16</p>
+          {seatsNumber.map(seat => <p key={seat}>Assento {seat}</p>)}
+          
         </ContainerIngressos>
         <ContainerFilmeSessao data-test="client-info">
           <h1>Comprador</h1>
